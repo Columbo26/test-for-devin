@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Карта Королевства — мини-игра</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Карта Королевства</h1>
+    <p class="progress">Открыто секторов: <span id="opened-count">0</span> / <span id="total-count">0</span></p>
+  </header>
+
+  <main>
+    <aside class="players" id="players" aria-label="Игроки"></aside>
+
+    <section class="board-wrap">
+      <div class="board" id="board"></div>
+    </section>
+  </main>
+
+  <div class="confirm" id="confirm" hidden>
+    <div class="confirm-box">
+      <p class="confirm-player" id="confirm-player"></p>
+      <h2 id="confirm-title"></h2>
+      <p>Открыть этот сектор?</p>
+      <div class="confirm-actions">
+        <button type="button" id="confirm-yes">Подтвердить</button>
+        <button type="button" id="confirm-no" class="secondary">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="finish" id="finish" hidden>
+    <div class="finish-box">
+      <h2>Карта открыта полностью!</h2>
+      <p>Пазл завершён.</p>
+      <ul id="finish-stats"></ul>
+      <div class="confirm-actions">
+        <button type="button" id="finish-close" class="secondary">Посмотреть карту</button>
+        <button type="button" id="restart">Начать заново</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
