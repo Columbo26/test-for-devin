@@ -16,6 +16,8 @@ header {
 
 header h1 { margin: 0; font-size: 2rem; letter-spacing: 1px; }
 .progress { margin: 6px 0 0; opacity: 0.85; }
+#restart-top { margin-top: 8px; }
+#restart-top[hidden] { display: none; }
 
 main {
   display: flex;
@@ -161,7 +163,7 @@ main {
 
 .confirm-actions { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
 
-button#confirm-yes, button#confirm-no, button#restart, button#finish-close {
+button#confirm-yes, button#confirm-no, button#restart, button#finish-close, button#restart-top {
   font: inherit;
   padding: 8px 18px;
   border-radius: 6px;

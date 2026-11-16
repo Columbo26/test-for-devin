@@ -78,6 +78,7 @@ const confirmPlayerEl = document.getElementById("confirm-player");
 const finishEl = document.getElementById("finish");
 const finishStatsEl = document.getElementById("finish-stats");
 const openedCountEl = document.getElementById("opened-count");
+const restartTopEl = document.getElementById("restart-top");
 
 document.getElementById("total-count").textContent = COLS * ROWS;
 boardEl.style.setProperty("--cols", COLS);
@@ -201,6 +202,7 @@ function showFinish() {
     finishStatsEl.append(li);
   });
   finishEl.hidden = false;
+  restartTopEl.hidden = false;
 }
 
 function restart() {
@@ -209,6 +211,7 @@ function restart() {
   state.activePlayer = 0;
   finishEl.hidden = true;
   confirmEl.hidden = true;
+  restartTopEl.hidden = true;
   buildBoard();
   renderPlayers();
 }
@@ -216,6 +219,7 @@ function restart() {
 document.getElementById("confirm-yes").addEventListener("click", confirmSelection);
 document.getElementById("confirm-no").addEventListener("click", cancelSelection);
 document.getElementById("restart").addEventListener("click", restart);
+restartTopEl.addEventListener("click", restart);
 document.getElementById("finish-close").addEventListener("click", () => {
   finishEl.hidden = true;
 });
