@@ -68,8 +68,11 @@ const state = {
   activePlayer: 0,
   owners: new Array(COLS * ROWS).fill(null),
   pendingIndex: null,
+  pendingPlayer: null,
 };
 
+const mainEl = document.querySelector("main");
+const headerEl = document.querySelector("header");
 const boardEl = document.getElementById("board");
 const playersEl = document.getElementById("players");
 const confirmEl = document.getElementById("confirm");
@@ -147,6 +150,7 @@ function selectTile(index) {
   clearSelection();
   const player = PLAYERS[state.activePlayer];
   state.pendingIndex = index;
+  state.pendingPlayer = player.id;
 
   const tile = tileEl(index);
   tile.classList.add("selected");
@@ -155,7 +159,14 @@ function selectTile(index) {
   confirmPlayerEl.textContent = player.name;
   confirmPlayerEl.style.setProperty("--color", player.color);
   confirmTitleEl.textContent = SECTORS[index];
-  confirmEl.hidden = false;
+  setConfirmOpen(true);
+}
+
+function setConfirmOpen(open) {
+  confirmEl.hidden = !open;
+  mainEl.inert = open;
+  headerEl.inert = open;
+  if (open) document.getElementById("confirm-yes").focus();
 }
 
 function clearSelection() {
@@ -164,12 +175,13 @@ function clearSelection() {
   tile.classList.remove("selected");
   if (state.owners[state.pendingIndex] === null) tile.style.removeProperty("--color");
   state.pendingIndex = null;
+  state.pendingPlayer = null;
 }
 
 function confirmSelection() {
   const index = state.pendingIndex;
   if (index === null) return;
-  const player = PLAYERS[state.activePlayer];
+  const player = PLAYERS[state.pendingPlayer];
 
   state.owners[index] = player.id;
   const tile = tileEl(index);
@@ -178,7 +190,8 @@ function confirmSelection() {
   tile.classList.add("flipped");
   tile.disabled = true;
   state.pendingIndex = null;
-  confirmEl.hidden = true;
+  state.pendingPlayer = null;
+  setConfirmOpen(false);
 
   renderPlayers();
 
@@ -189,7 +202,7 @@ function confirmSelection() {
 
 function cancelSelection() {
   clearSelection();
-  confirmEl.hidden = true;
+  setConfirmOpen(false);
 }
 
 function showFinish() {
@@ -208,9 +221,10 @@ function showFinish() {
 function restart() {
   state.owners.fill(null);
   state.pendingIndex = null;
+  state.pendingPlayer = null;
   state.activePlayer = 0;
   finishEl.hidden = true;
-  confirmEl.hidden = true;
+  setConfirmOpen(false);
   restartTopEl.hidden = true;
   buildBoard();
   renderPlayers();

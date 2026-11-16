@@ -115,9 +115,16 @@ main {
   background: #e6cf98 linear-gradient(135deg, #f3e3b8, #d8b878);
   border: 1px solid #8a6a3c;
   color: #3e3226;
-  font-size: clamp(9px, 1.2vw, 14px);
-  line-height: 1.2;
+  font-size: clamp(7px, 1.2vw, 14px);
+  line-height: 1.15;
   text-align: center;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+@media (max-width: 600px) {
+  .tile-front { padding: 2px; }
 }
 
 .tile:not(:disabled):hover .tile-front { background: #f6e8c4; }
